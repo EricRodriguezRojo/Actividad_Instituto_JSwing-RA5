@@ -75,7 +75,7 @@ public class StudentRegister     {
         
         Student student = Manager.StudentManager.createStudent();
         records.add(student);
-        
+            
         FileManager.overWriteFile(records);
 
     }

@@ -35,10 +35,9 @@ public class FileManager {
     
     
     public static void overWriteFile(ArrayList<Student> records) {
-        
-        try  {
-            FileWriter wr = new FileWriter("records.txt");
-            String br = System.getProperty("line.separator");
+        System.out.println("prueba");
+        try (FileWriter wr = new FileWriter("records.txt")) {
+            String br = System.lineSeparator();
             
             for(Student studentfor : records){
                 wr.write(studentfor.getName() +";"+ studentfor.getLastname()+";"+ studentfor.getAge() +";"+ studentfor.getCourse() +";"+ studentfor.getDni() + br);
