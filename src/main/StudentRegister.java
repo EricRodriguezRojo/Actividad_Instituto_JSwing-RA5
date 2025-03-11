@@ -1,8 +1,9 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package main;
+import JSwings.Home;
 import Manager.FileManager;
 import Manager.StudentManager;
 import java.io.BufferedReader;
@@ -20,49 +21,23 @@ import model.Student;
  */
 public class StudentRegister     {
 
+    public static ArrayList<Student> records = new ArrayList();
+    
     public static void main(String[] args) {
-        ArrayList<Student> records = new ArrayList();
-        int opc;
-        boolean exit = false;
         createFile();
+        startRecords();
         
-        do{
-            opc = menu();
-            
-            switch(opc) {
-                case 1: NewStudent(records); break;
-                case 2: StudentList(); break;
-                case 3: DeleteStudent(records); break;
-                case 4: SearchStudentDni(); break;
-                case 5: exit = true;
-            }
-        }while(!exit);
-        
+        Home home = new Home();
+        home.setVisible(true);
+
     }
     
-    public static int menu(){
 
-        int opc;
+    
+    public static void startRecords() {
         
-        do{
-            Scanner sc = new Scanner(System.in);
-            
-            System.out.println("==============================");
-            System.out.println(" Student Registration Manager ");
-            System.out.println("==============================");
-            System.out.println("[1] Create new student in the register");
-            System.out.println("[2] list of registered students");
-            System.out.println("[3] Delete a student from the register");
-            System.out.println("[4] Search for a student by their DNI");
-            System.out.println("[5] Exit");
-            
-            System.out.print("Select an option: ");
-            opc = sc.nextInt();
-            
-        }while(opc != 1 && opc != 2 && opc != 3 && opc != 4 && opc != 5);
-        
-        return opc;
-        
+        Manager.FileManager.startRecords();
+       
     }
     
     public static void createFile(){
@@ -71,12 +46,12 @@ public class StudentRegister     {
 
     }
     
-    public static void NewStudent(ArrayList<Student> records){
+    public static void NewStudent(){
         
         Student student = Manager.StudentManager.createStudent();
         records.add(student);
             
-        FileManager.overWriteFile(records);
+        FileManager.overWriteFile();
 
     }
     
@@ -92,7 +67,7 @@ public class StudentRegister     {
         FileManager.showByDni(dni);
     }
     
-    public static void DeleteStudent(ArrayList<Student> records) {
+    public static void DeleteStudent() {
         
         FileManager.showFileData();
         
@@ -114,7 +89,7 @@ public class StudentRegister     {
             System.out.println("The student was eliminated successfully!");
         }
         
-        FileManager.overWriteFile(records);
+        FileManager.overWriteFile();
         
     }
     

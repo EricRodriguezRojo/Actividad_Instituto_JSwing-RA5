@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import main.StudentRegister;
 import model.Student;
 
 /**
@@ -18,6 +19,35 @@ import model.Student;
  * @author erpys
  */
 public class FileManager {
+    
+    public static void startRecords(){
+        
+        try  {
+            FileReader fileread = new FileReader("records.txt");
+            BufferedReader br = new BufferedReader(fileread);
+
+            String line;
+            
+            for (line = br.readLine(); line != null ; line = br.readLine()) {
+                
+                String[] datos = line.split(";");
+                String name = datos[0];
+                String lastname = datos[1];
+                int age = Integer.valueOf(datos[2]); 
+                String course = datos[3];
+                String dni = datos[4];
+                
+                Student student = new Student(name, lastname, age, course, dni);
+                StudentRegister.records.add(student);
+
+             }
+        } catch (IOException e) {
+            System.out.println("Error reading file!");
+            System.out.println("");
+        }  
+        
+    }
+    
     
     public static void createFile() {
         
@@ -34,12 +64,12 @@ public class FileManager {
     }
     
     
-    public static void overWriteFile(ArrayList<Student> records) {
+    public static void overWriteFile() {
         System.out.println("prueba");
         try (FileWriter wr = new FileWriter("records.txt")) {
             String br = System.lineSeparator();
             
-            for(Student studentfor : records){
+            for(Student studentfor : StudentRegister.records){
                 wr.write(studentfor.getName() +";"+ studentfor.getLastname()+";"+ studentfor.getAge() +";"+ studentfor.getCourse() +";"+ studentfor.getDni() + br);
             }
             System.out.println(""); 
@@ -64,7 +94,7 @@ public class FileManager {
 
 
              int cont = 1;
-             while ((line = br.readLine()) != null) {
+             for (line = br.readLine(); line != null ; line = br.readLine()) {
 
                 String[] fields = line.split(";");
 
@@ -98,10 +128,10 @@ public class FileManager {
             FileReader fileread = new FileReader("records.txt");
             BufferedReader br = new BufferedReader(fileread);   
             
-            String line = br.readLine();
+            String line;
             boolean doit = false;
             
-            while(line != null) {
+            for (line = br.readLine(); line != null ; line = br.readLine()) {
                 String[] fields = line.split(";");
                 
                 if (dni.equalsIgnoreCase(fields[4])){
@@ -117,7 +147,6 @@ public class FileManager {
                     doit = true;
                     break;
                 }
-                line = br.readLine();
             }
             
             if (!doit){
