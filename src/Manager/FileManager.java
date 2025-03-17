@@ -11,7 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import main.StudentRegister;
+import static main.StudentRegister.records;
 import model.Student;
 
 /**
@@ -83,30 +86,32 @@ public class FileManager {
     }
     
     
-    public static void showFileData(){
+    public static boolean showFileData(JTextArea LJshowlist){
         
         boolean doit = false;
         try  {
              FileReader fileread = new FileReader("records.txt");
              BufferedReader br = new BufferedReader(fileread);
-
+             String jump = System.lineSeparator();
              String line;
 
 
-             int cont = 1;
-             for (line = br.readLine(); line != null ; line = br.readLine()) {
+            int cont = 1;
+            LJshowlist.setText(""); // Limpia el JTextArea antes de mostrar datos nuevos
 
+            while ((line = br.readLine()) != null) {
                 String[] fields = line.split(";");
 
-                System.out.println("------------");
-                System.out.println("  Alumno " + cont);
-                System.out.println("------------");
-                System.out.println("Name: " + fields[0]);
-                System.out.println("Last Name: " + fields[1]);
-                System.out.println("Age: " + fields[2]);
-                System.out.println("Class: " + fields[3]);
-                System.out.println("Dni: " + fields[4]);
-                System.out.println("");
+                LJshowlist.append("                ----------------------" + jump);
+                LJshowlist.append("                      Alumno " + cont + jump);
+                LJshowlist.append("                ----------------------" + jump);
+                LJshowlist.append("                Name: " + fields[0] + jump);
+                LJshowlist.append("                Last Name: " + fields[1] + jump);
+                LJshowlist.append("                Age: " + fields[2] + jump);
+                LJshowlist.append("                Class: " + fields[3] + jump);
+                LJshowlist.append("                Dni: " + fields[4] + jump);
+                LJshowlist.append(jump);
+
                 cont++;
                 doit = true;
              }
@@ -114,50 +119,63 @@ public class FileManager {
             System.out.println("Error reading file!");
             System.out.println("");
         }  
-        if (!doit) {
-            System.out.println("There are no students to show.!");
-            System.out.println("");
-        }
         
+        return doit;
     }
     
     
-    public static void showByDni(String dni) {
-        
+    public static boolean showByDni(String dni, JTextArea SJshowStudent) {
+        SJshowStudent.setText("");
+        boolean doit = false;
         try {
             FileReader fileread = new FileReader("records.txt");
             BufferedReader br = new BufferedReader(fileread);   
-            
+            String jump = System.lineSeparator();
             String line;
-            boolean doit = false;
             
             for (line = br.readLine(); line != null ; line = br.readLine()) {
                 String[] fields = line.split(";");
                 
                 if (dni.equalsIgnoreCase(fields[4])){
-                    System.out.println("-----------");
-                    System.out.println("  Alumno ");
-                    System.out.println("-----------");
-                    System.out.println("Name: " + fields[0]);
-                    System.out.println("Last Name: " + fields[1]);
-                    System.out.println("Age: " + fields[2]);
-                    System.out.println("Class: " + fields[3]);
-                    System.out.println("Dni: " + fields[4]);
-                    System.out.println("");
+                    SJshowStudent.append("                    ----------------------" + jump);
+                    SJshowStudent.append("                        Alumno " + jump);
+                    SJshowStudent.append("                    ----------------------" + jump);
+                    SJshowStudent.append("                    Name: " + fields[0] + jump);
+                    SJshowStudent.append("                    Last Name: " + fields[1] + jump);
+                    SJshowStudent.append("                    Age: " + fields[2] + jump);
+                    SJshowStudent.append("                    Class: " + fields[3] + jump);
+                    SJshowStudent.append("                    Dni: " + fields[4] + jump);
+                    SJshowStudent.append(jump);
+                    
+                    
                     doit = true;
-                    break;
+                    return true;
+                    
                 }
             }
             
-            if (!doit){
-                System.out.println("This DNI doesn't exist!");
-                System.out.println("");
-            }
             
         } catch(IOException e){
             System.out.println("Error reading file!");
         }
+        
+        return doit;
     }
+    public static boolean DeleteStudent(String dni) {
+        boolean doit = false;
+        for(Student student : records) {
+
+            if (dni.equalsIgnoreCase(student.getDni())) {
+                records.remove(student);
+                doit = true;
+                break;
+            }
+        }
+        overWriteFile();
+        return doit;
+    }
+    
+   
     
 }
 

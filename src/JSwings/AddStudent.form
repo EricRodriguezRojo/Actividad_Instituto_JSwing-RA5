@@ -135,10 +135,16 @@
     <Component class="javax.swing.JTextField" name="AJlastname">
     </Component>
     <Component class="javax.swing.JTextField" name="AJage">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="AJageKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="AJcourse">
     </Component>
     <Component class="javax.swing.JTextField" name="AJdni">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="AJdniKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ABaddstudent">
       <Properties>

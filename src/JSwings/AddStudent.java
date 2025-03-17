@@ -4,6 +4,7 @@
  */
 package JSwings;
 
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import main.StudentRegister;
 import model.Student;
@@ -63,6 +64,18 @@ public class AddStudent extends javax.swing.JFrame {
         AJname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AJnameActionPerformed(evt);
+            }
+        });
+
+        AJage.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AJageKeyTyped(evt);
+            }
+        });
+
+        AJdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AJdniKeyTyped(evt);
             }
         });
 
@@ -141,19 +154,13 @@ public class AddStudent extends javax.swing.JFrame {
 
     private void ABaddstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABaddstudentActionPerformed
         boolean doit = false;
+        boolean text = false;
         int age = -1;
-                
-        do {
-            try {
-                age = Integer.parseInt(AJage.getText());
-                doit = true;
-            }catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "You cant put text in age, only numbers!");
-            }
-        }while(!doit);
+        
         
         String name = AJname.getText();
         String lastname = AJlastname.getText();
+        age = Integer.parseInt(AJage.getText());
         String course = AJcourse.getText();
         String dni = AJdni.getText();
         
@@ -165,6 +172,11 @@ public class AddStudent extends javax.swing.JFrame {
             System.out.println(student.getAge());
             StudentRegister.records.add(student);
             Manager.FileManager.overWriteFile();
+            AJname.setText("");
+            AJlastname.setText("");
+            AJcourse.setText("");
+            AJdni.setText("");
+            AJage.setText("");
         }
     }//GEN-LAST:event_ABaddstudentActionPerformed
 
@@ -176,6 +188,30 @@ public class AddStudent extends javax.swing.JFrame {
         new Home().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ABhomeActionPerformed
+
+    private void AJageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AJageKeyTyped
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){ // Si no es número cancelar el evento
+            evt.consume();
+        }
+    }//GEN-LAST:event_AJageKeyTyped
+
+    private void AJdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AJdniKeyTyped
+        String dni = AJdni.getText();
+        char c = evt.getKeyChar();
+        if(dni.length() == 8){
+            if(Character.isDigit(c)){ // Si no es número cancelar el evento
+                evt.consume();
+            }
+        }else if(dni.length()>8){
+            evt.consume();
+        }else{
+            if(!Character.isDigit(c)){ // Si no es número cancelar el evento
+                evt.consume();
+            }
+        }
+        
+    }//GEN-LAST:event_AJdniKeyTyped
 
     /**
      * @param args the command line arguments

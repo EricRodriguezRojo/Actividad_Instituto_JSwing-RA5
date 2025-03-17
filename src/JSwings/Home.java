@@ -50,18 +50,33 @@ public class Home extends javax.swing.JFrame {
         Bliststudents.setText("Show list of students");
         Bliststudents.setBorder(null);
         Bliststudents.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Bliststudents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BliststudentsActionPerformed(evt);
+            }
+        });
 
         Bsearchstudentdni.setBackground(new java.awt.Color(255, 255, 101));
         Bsearchstudentdni.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Bsearchstudentdni.setText("Search a student by dni");
         Bsearchstudentdni.setBorder(null);
         Bsearchstudentdni.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Bsearchstudentdni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BsearchstudentdniActionPerformed(evt);
+            }
+        });
 
         Bdeletestudent.setBackground(new java.awt.Color(255, 90, 90));
         Bdeletestudent.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Bdeletestudent.setText(" Delete a student");
         Bdeletestudent.setBorder(null);
         Bdeletestudent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Bdeletestudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BdeletestudentActionPerformed(evt);
+            }
+        });
 
         Bexit.setBackground(new java.awt.Color(40, 40, 40));
         Bexit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -113,13 +128,28 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BexitActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_BexitActionPerformed
 
     private void BaddstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaddstudentActionPerformed
         new AddStudent().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BaddstudentActionPerformed
+
+    private void BliststudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BliststudentsActionPerformed
+        new ListStudents().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BliststudentsActionPerformed
+
+    private void BsearchstudentdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BsearchstudentdniActionPerformed
+        new SearchByDni().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BsearchstudentdniActionPerformed
+
+    private void BdeletestudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BdeletestudentActionPerformed
+        new DeleteStudent().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BdeletestudentActionPerformed
 
     /**
      * @param args the command line arguments
